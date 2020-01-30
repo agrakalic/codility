@@ -1,0 +1,26 @@
+<script>
+
+// https://app.codility.com/programmers/lessons/1-iterations/binary_gap/
+
+function solution(n) {
+  
+  let bin = n.toString(2); // convert decimal to binary 
+  let maxGap = 0;
+  let zeros = 0;
+
+  for (let i of bin) {
+    if (i == 0) { 
+      zeros++;
+    } else {
+      maxGap = Math.max(zeros,maxGap);
+      zeros = 0;
+    }
+  }
+  
+  return maxGap;
+
+}
+
+console.log( solution(1041) );
+
+</script>
