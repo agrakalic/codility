@@ -1,0 +1,38 @@
+<script>
+
+// https://app.codility.com/programmers/lessons/7-stacks_and_queues/stone_wall/
+
+/*
+Idea behind this solution is to keep track of the left edges (start points) of the block.
+If the current value in the array is greater than the previous, we add another left edge to the stack.
+If the current value is less then the previous, we are going through the stack and remove any value greater than current - we reached the right edge! 
+*/
+
+function solution(a) {
+
+  let blocks = 0; // total min number of blocks
+  let prev = 0; // previous value  
+  let left = []; // left edge stack
+  
+  for (let i=0; i<a.length; i++) {  // loop through the values
+    const n = a[i]; // our current value
+    if (n>prev) { // if the current value is greater than previous, 
+      left.push(n); // we add another left edge
+    }
+    if (n<prev) { // if the value is less then previous
+      while (left.length>0 && n<left[left.length-1]) { // we are checking the left edges stack         
+        left.pop(); // remove the item 
+        blocks++; // which means that we reached the right edge, so we add to total number of blocks.
+      }
+      if(n !== left[left.length-1]) left.push(n); // we are adding left edge to the stack only if the current is greater than the last item in the stack
+    }
+    prev = n;
+  }
+
+  return blocks + left.length; // result is total number of counted blocks plus whatever remains in the stack, since we reached the right edge for all 
+
+}
+
+console.log( solution([8,8,5,7,9,8,7,4,8]) );
+
+</script>
